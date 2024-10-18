@@ -3,7 +3,7 @@ import pytest
 
 import pytest
 from selenium import webdriver
-
+from selenium.webdriver.remote.webdriver import WebDriver
 
 """ @pytest.fixture(scope="module")
 under this module the scope will run only ones 
@@ -57,11 +57,13 @@ def test_my_first_one():
     assert my_validation, "The validation of this test has failed!"
 
 
-# def test_my_second_one(init_web_driver, second_fixture):
-#     driver = init_web_driver
-#     driver.get("http://www.rainthedog.com")
-#     print("\n i'm inside my second test!")
-#
-#     # Pre-conditions
-#     # Test body
-#     # Validation / Expected result
+def test_my_second_one(init_web_driver, second_fixture):
+    driver: WebDriver = init_web_driver
+    expected_url = "https://rainthedog.com/"
+    driver.get(expected_url)
+    actual_url = driver.current_url
+    assert expected_url == actual_url, "Expected url didn't match the actual"
+
+    # Pre-conditions
+    # Test body
+    # Validation / Expected result
