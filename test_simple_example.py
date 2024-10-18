@@ -30,7 +30,14 @@ its means under the executions under the full session the fixture will be execut
 def init_web_driver():
     print("\n In web driver init")
 
-    return webdriver.Chrome()
+    # it will be just return
+    # return webdriver.Chrome()
+
+    # so after returning also will continue the code
+    # yield webdriver.Chrome()
+    yield webdriver.Chrome()
+    print("\n I'm after the yield")
+
 
 @pytest.fixture()
 def second_fixture():
