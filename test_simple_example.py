@@ -5,7 +5,28 @@ import pytest
 from selenium import webdriver
 
 
-@pytest.fixture
+""" @pytest.fixture(scope="module")
+under this module the scope will run only ones 
+"""
+
+"""@pytest.fixture(scope="function")
+this one is default 
+it means ech one of the function will run fixture whenever will colling that and will be destroyed after ech functions
+will be executed
+"""
+
+"""@pytest.fixture(scope="class")
+its means this fixture will be limited to the scope of this class 
+"""
+
+"""@pytest.fixture(scope="package")
+its means this fixture will be limited to the package currently in
+"""
+
+"""@pytest.fixture(scope="session")
+its means under the executions under the full session the fixture will be executed only ones for all of the test
+"""
+@pytest.fixture(scope="session")
 def init_web_driver():
     print("\n In web driver init")
 
