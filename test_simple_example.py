@@ -35,8 +35,10 @@ def init_web_driver():
 
     # so after returning also will continue the code
     # yield webdriver.Chrome()
-    yield webdriver.Chrome()
+    driver = webdriver.Chrome()
+    yield driver
     print("\n I'm after the yield")
+    driver.close()
 
 
 @pytest.fixture()
@@ -50,15 +52,16 @@ def second_fixture():
 @pytest.mark.usefixtures("init_web_driver")
 def test_my_first_one():
     print("\n i'm inside my first test!")
-    my_validation = True
+    my_validation = False
+    raise Exception
     assert my_validation, "The validation of this test has failed!"
 
 
-def test_my_second_one(init_web_driver, second_fixture):
-    driver = init_web_driver
-    driver.get("http://www.rainthedog.com")
-    print("\n i'm inside my second test!")
-
-    # Pre-conditions
-    # Test body
-    # Validation / Expected result
+# def test_my_second_one(init_web_driver, second_fixture):
+#     driver = init_web_driver
+#     driver.get("http://www.rainthedog.com")
+#     print("\n i'm inside my second test!")
+#
+#     # Pre-conditions
+#     # Test body
+#     # Validation / Expected result
