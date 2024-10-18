@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.system
 @pytest.mark.sanity
 def test_my_first_one():
     print("\n i'm inside my first test!")
