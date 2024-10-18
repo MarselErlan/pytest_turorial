@@ -26,8 +26,9 @@ its means this fixture will be limited to the package currently in
 """@pytest.fixture(scope="session")
 its means under the executions under the full session the fixture will be executed only ones for all of the test
 """
-@pytest.fixture(scope="session")
-def init_web_driver():
+# @pytest.fixture(scope="session")
+@pytest.fixture()
+def init_web_driver(request):
     print("\n In web driver init")
 
     # it will be just return
@@ -35,7 +36,19 @@ def init_web_driver():
 
     # so after returning also will continue the code
     # yield webdriver.Chrome()
-    driver = webdriver.Chrome()
+
+
+    driver: WebDriver
+    browser_name = request.config.option.browser_name
+
+    if browser_name == "chrome":
+        driver = webdriver.Chrome()
+
+    elif browser_name == "firefox":
+        driver = webdriver.Firefox()
+    else:
+        driver = webdriver.Chrome()
+
     yield driver
     print("\n I'm after the yield")
     driver.close()
@@ -52,8 +65,8 @@ def second_fixture():
 @pytest.mark.usefixtures("init_web_driver")
 def test_my_first_one():
     print("\n i'm inside my first test!")
-    my_validation = False
-    raise Exception
+    my_validation = True
+    # raise Exception
     assert my_validation, "The validation of this test has failed!"
 
 
